@@ -12,7 +12,14 @@ class rsh (
   $rexec_service_enable   = undef,
   $nodes                  = [],
   $root_nodes             = [],
+  $update_securetty       = true,
+  $securettys             = ['rlogin', 'rsh'],
 ) inherits rsh::params {
+
+  validate_bool($update_securetty)
+  validate_array($nodes)
+  validate_array($root_nodes)
+  validate_array($securettys)
 
   $_rsh_service_ensure    = pick($rsh_service_ensure, $service_ensure)
   $_rsh_service_enable    = pick($rsh_service_enable, $service_enable)
