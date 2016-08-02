@@ -1,0 +1,9 @@
+fixtures:
+  repositories:
+    stdlib:
+      repo: https://github.com/puppetlabs/puppetlabs-stdlib.git
+      ref: 4.3.1
+    concat:
+      repo: https://github.com/puppetlabs/puppetlabs-concat.git
+  symlinks:
+    rsh: "#{source_dir}"

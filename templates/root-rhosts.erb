@@ -1,0 +1,6 @@
+#### File managed by Puppet ####
+# <%= @servername %>:<%= @__file__ %>
+
+<% scope.lookupvar('rsh::root_nodes').each do |node| -%>
+<%= node %> root
+<% end -%>
