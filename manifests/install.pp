@@ -5,7 +5,7 @@ class rsh::install {
   }
 
   package { 'rsh-server':
-    ensure => $rsh::package_ensure,
+    ensure => $rsh::_package_ensure,
     name   => $rsh::package_name,
   }
 

@@ -4,15 +4,17 @@ class rsh::config {
   #rsh::rhosts { '/etc/hosts.equiv': }
 
   concat { '/etc/hosts.equiv':
-    owner => 'root',
-    group => 'root',
-    mode  => '0644',
+    ensure => $rsh::ensure,
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0644',
   }
 
   concat { '/root/.rhosts':
-    owner => 'root',
-    group => 'root',
-    mode  => '0644',
+    ensure => $rsh::ensure,
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0644',
   }
 
   # Template uses:
@@ -32,19 +34,25 @@ class rsh::config {
   }
 
   if $rsh::update_securetty {
-    if 'rsh' in $rsh::securettys {
-      $_rsh_securetty_ensure = 'present'
-    } else {
+    if $rsh::ensure == 'present' {
+      if 'rsh' in $rsh::securettys {
+        $_rsh_securetty_ensure = 'present'
+      } else {
+        $_rsh_securetty_ensure = 'absent'
+      }
+      if 'rlogin' in $rsh::securettys {
+        $_rlogin_securetty_ensure = 'present'
+      } else {
+        $_rlogin_securetty_ensure = 'absent'
+      }
+      if 'rexec' in $rsh::securettys {
+        $_rexec_securetty_ensure = 'present'
+      } else {
+        $_rexec_securetty_ensure = 'absent'
+      }
+    } elsif $rsh::ensure == 'absent' {
       $_rsh_securetty_ensure = 'absent'
-    }
-    if 'rlogin' in $rsh::securettys {
-      $_rlogin_securetty_ensure = 'present'
-    } else {
       $_rlogin_securetty_ensure = 'absent'
-    }
-    if 'rexec' in $rsh::securettys {
-      $_rexec_securetty_ensure = 'present'
-    } else {
       $_rexec_securetty_ensure = 'absent'
     }
 
