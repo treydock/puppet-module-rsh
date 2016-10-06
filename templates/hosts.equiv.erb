@@ -1,5 +1,5 @@
 #### File managed by Puppet ####
-# <%= @servername %>:<%= @__file__ %>
+# <%= scope['settings::server'] %>:<%= @__file__ %>
 
 <% scope.lookupvar('rsh::nodes').each do |node| -%>
 <%= node %>
